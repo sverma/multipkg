@@ -1,0 +1,71 @@
+%define name    <%= name %> 
+%define version <%= version %>
+%define release <%= release %>
+%define _tmppath <%= tmppath %>
+%define _topdir  <%= topdir %>
+%define source %{name}-%{version}.tar.gz
+Name: %{name}
+Version: %{version}
+Release: %{release}
+Source:  %{source}
+Group: Pw applications
+BuildArch: <%= arch %>
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+License: <%= license %>
+Summary: <%= summary %>
+<% if ( ! requires.empty?  )  %>
+
+Requires: <%= requires %>
+<% end %>
+%description
+<%= description %>
+%summary 
+
+ 
+%preun 
+<%= preun %> 
+
+%post 
+
+<%= post %>
+
+%postun 
+
+<%= postun %>
+
+%pre 
+
+<%= pre %>  
+%prep 
+
+umask 022 
+cd %{_topdir}/BUILD
+cd %{_topdir}/BUILD
+rm -rf %{name}-%{version}
+mkdir -p %{_topdir}/BUILD/%{name}-%{version}
+cd %{name}-%{version}
+tar  -xvzf %{_topdir}/SOURCES/%{source} 
+#exit 0 
+#mkdir -p %{_topdir}/%{name}-%{version}
+#%setup  
+
+%build
+
+
+%install 
+rm -rf $RPM_BUILD_ROOT
+#tar -xvf  -C $RPM_BUILD_ROOT
+mkdir -p $RPM_BUILD_ROOT/
+umask 022 
+
+cp -rp %{_topdir}/BUILD/%name-%{version}/*  $RPM_BUILD_ROOT
+
+%clean 
+
+test $RPM_BUILD_ROOT != / 
+rm -rf $RPM_BUILD_ROOT
+
+%files
+
+<%= files_attr %>
+
