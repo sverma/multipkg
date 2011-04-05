@@ -4,10 +4,10 @@ require 'getoptlong'
 require 'find'
 require 'etc'
 opts = GetoptLong.new( 
-        [ '--help' , '-h' , GetoptLong::NO_ARGUMENT ] , 
-        [ '--dir' , '-d' , GetoptLong::REQUIRED_ARGUMENT ]  , 
-        [ '--quiet' , '-q' , GetoptLong::NO_ARGUMENT ] ,
-        [ '--verbose' , '-v' , GetoptLong::OPTIONAL_ARGUMENT ] 
+	[ '--help' , '-h' , GetoptLong::NO_ARGUMENT ] , 
+	[ '--dir' , '-d' , GetoptLong::REQUIRED_ARGUMENT ]  , 
+	[ '--quiet' , '-q' , GetoptLong::NO_ARGUMENT ] ,
+	[ '--verbose' , '-v' , GetoptLong::OPTIONAL_ARGUMENT ] 
 )
 
 version = 0
@@ -47,41 +47,41 @@ OPTIONS :
 
 end 
 opts.each do |opt , arg |
-        case opt
-                when '--help'
-                        help() ; 
-                        exit 0 
-
-                when '--dir'
-                        if ( arg =~ /\W(\.)+\W/ ) 
-                                puts " Please enter a valid Directory name or Path "  
-                                exit 1
-                        elsif ( arg == "" )
-                                puts " Use --help for help " 
-                        else 
-                                metapkg_dir = arg 
-                        end
-                when '--quiet' 
-                        quiet_output = "2>1 1>/dev/null" if 
-                        rpmbuild_arg += '--quiet' 
-                when '--verbose' 
-                        if ( arg == "" ) 
-                                rpmbuild_arg += ' -v'
-                        elsif ( arg == "v" ) 
-                                rpmbuild_arg += ' -vv'
-                        else 
-                                puts  " Please enter a valid verbosity level either -v or -vv " 
-                                exit 1
-                        end 
-        end 
+	case opt
+		when '--help'
+			help() ; 	
+			exit 0 
+		
+		when '--dir'
+			if ( arg =~ /\W(\.)+\W/ ) 
+				puts " Please enter a valid Directory name or Path "  
+				exit 1
+			elsif ( arg == "" )
+				puts " Use --help for help " 
+			else 
+				metapkg_dir = arg 
+			end
+		when '--quiet' 
+			quiet_output = "2>1 1>/dev/null" if 
+			rpmbuild_arg += '--quiet' 
+		when '--verbose' 
+			if ( arg == "" ) 
+				rpmbuild_arg += ' -v'
+			elsif ( arg == "v" ) 
+				rpmbuild_arg += ' -vv'
+			else 
+				puts  " Please enter a valid verbosity level either -v or -vv " 
+				exit 1
+			end 
+	end 
 end 
 
 if ( metapkg_dir == "" )  
-        puts " \n Use --help for help \n " 
+	puts " \n Use --help for help \n " 
 end 
-
+			
 if  File.directory? metapkg_dir 
-        name = File.basename(metapkg_dir) 
+	name = File.basename(metapkg_dir) 
 end 
 infile = File.new("#{metapkg_dir}/version" , "r" ) 
 varfound = ""
@@ -89,61 +89,61 @@ hash_of_install_scripts = Hash.new
 temp_string = "" 
 i = String.new
 while ( ! infile.eof ) 
-        puts i if  ( quiet_output == "" ) 
-        if ( i =~ /^\s*(post|preun|postun|pre)\s*:.*/ ) 
-                varfound = $1 
-                i =~ /#{varfound}:\s+(.*)/
-                hash_of_install_scripts[varfound] = String.new if ! ( hash_of_install_scripts.has_key? varfound  )
-                hash_of_install_scripts[varfound] += $1 
-                i  = infile.readline() 
-                while ( ( ! ( i  =~ /^(pre|post|preun|postun|name|release|arch|requires):/ ) ) && ( ! infile.eof ) )   
-                        hash_of_install_scripts[varfound] += i 
-                        i  = infile.readline()  if  ( ! infile.eof ) 
-
-                end 
-                hash_of_install_scripts[varfound] += i if ( ! ( i  =~ /^(post|preun|postun|name|release|arch|requires|pre):/ ) )  
-        else 
-                 i  = infile.readline()
-
-        end 
-        version = $1 if i =~ /Version:\s+([\d.]+)/i
-        release = $1 if i =~ /Release:\s+([\d\w.]+)/i
-        arch = $1 if i =~ /Arch:\s+([\d\w]+)/i
-        requires = $1 if i =~ /requires:\s+(.*)/i 
-
+	puts i if  ( quiet_output == "" ) 
+	if ( i =~ /^\s*(post|preun|postun|pre)\s*:.*/ ) 
+		varfound = $1 
+		i =~ /#{varfound}:\s+(.*)/
+		hash_of_install_scripts[varfound] = String.new if ! ( hash_of_install_scripts.has_key? varfound  )
+		hash_of_install_scripts[varfound] += $1 
+		i  = infile.readline() 
+		while ( ( ! ( i  =~ /^(pre|post|preun|postun|name|release|arch|requires):/ ) ) && ( ! infile.eof ) )   
+			hash_of_install_scripts[varfound] += i 
+			i  = infile.readline()  if  ( ! infile.eof ) 
+			
+		end 
+		hash_of_install_scripts[varfound] += i if ( ! ( i  =~ /^(post|preun|postun|name|release|arch|requires|pre):/ ) )  
+	else 
+		 i  = infile.readline()
+			
+	end 	
+	version = $1 if i =~ /Version:\s+([\d.]+)/i
+	release = $1 if i =~ /Release:\s+([\d\w.]+)/i
+	arch = $1 if i =~ /Arch:\s+([\d\w]+)/i
+	requires = $1 if i =~ /requires:\s+(.*)/i 
+		
 end 
-        post = hash_of_install_scripts["post"] 
-        pre = hash_of_install_scripts["pre"] 
-        preun = hash_of_install_scripts["preun"]
-        postun = hash_of_install_scripts["postun"]
+	post = hash_of_install_scripts["post"] 
+	pre = hash_of_install_scripts["pre"] 
+	preun = hash_of_install_scripts["preun"]
+	postun = hash_of_install_scripts["postun"]
 summary = name 
 group = name 
 description = name 
 
 if  File.file? topdir 
-        File.unlink( topdir ) 
+	File.unlink( topdir ) 
 elsif   ! File.directory? topdir 
-        Dir.mkdir( topdir ) 
+	Dir.mkdir( topdir ) 
 end
 
 cwd_to_files = ""
 directory_to_files = ""   
 metapkg_dir += '/'  if ( metapkg_dir !~ /\/$/ ) 
 if ! ( metapkg_dir =~ /^\// ) 
-        cwd_to_files  = Dir.getwd ; 
-        directory_to_files = cwd_to_files + "/" +  metapkg_dir 
+	cwd_to_files  = Dir.getwd ; 
+	directory_to_files = cwd_to_files + "/" +  metapkg_dir 
 else 
-        directory_to_files += metapkg_dir
+	directory_to_files += metapkg_dir
 end 
 
 
 rpm_dir_array = [ "BUILD" , "BUILDROOT", "RPMS" , "SOURCES" , "SPECS" , "SRPMS" , "tmp" ] 
 rpm_arch_array = [ "i386" , "i586" , "i686" , "noarch" ] 
 rpm_dir_array.each { |x| 
-        Dir.mkdir("#{topdir}/#{x}")  if  ! File.directory? "#{topdir}/#{x}"
+	Dir.mkdir("#{topdir}/#{x}")  if  ! File.directory? "#{topdir}/#{x}"
 }
 rpm_arch_array.each { |x|
-        Dir.mkdir("#{topdir}/RPMS/#{x}") if  ! File.directory?  "#{topdir}/RPMS/#{x}" 
+	Dir.mkdir("#{topdir}/RPMS/#{x}") if  ! File.directory?  "#{topdir}/RPMS/#{x}" 
 }
 
 cwd = Dir.getwd  ; 
@@ -152,11 +152,11 @@ system("tar cvzf /tmp/rpm/SOURCES/#{name}-#{version}.tar.gz * #quiet_output")
 Dir.chdir(topdir)
 
 def update_spec_file_tokens ( template_file )  
-        template = ""
-        open (template_file) { |f| 
-                template = f.to_a.join 
+	template = ""
+	open (template_file) { |f| 
+		template = f.to_a.join 
 }
-        updated = ERB.new(template.gsub(/^  /,''),0 ).result 
+	updated = ERB.new(template.gsub(/^  /,''),0 ).result 
 return updated 
 end 
 
@@ -166,8 +166,8 @@ files_attr = String.new
 new_spec = update_spec_file_tokens("/etc/multipkg/spec_template.erb") 
 outfile = File.new("#{topdir}/SPECS/#{name}-#{version}.spec" , "w" ) 
 new_spec.each { |i|
-        outfile.write i 
-        }
+	outfile.write i 
+	}
 outfile.close 
 puts "\n\n debug #{metapkg_dir}/root #{directory_to_files}  \n\n " 
 directory_to_files += "root"
@@ -175,11 +175,11 @@ Dir.chdir("#{topdir}")
 system("rpmbuild #{rpmbuild_arg} -bp SPECS/#{name}-#{version}.spec #{quiet_output} ") ; 
 buildpath =  "#{topdir}/BUILD/#{name}-#{version}/"
 Find.find(directory_to_files) do |path|
-         mode = sprintf("%o" , File.stat(path).mode ) ;
-         mode =~ /^(\d+)?(\d{4})$/ 
-         mode = $2 
-         if File.file? path
-         owner_uid = File.stat(path).uid
+     mode = sprintf("%o" , File.stat(path).mode ) ;
+	 mode =~ /^(\d+)?(\d{4})$/ 
+	 mode = $2 
+	 if File.file? path	
+        owner_uid = File.stat(path).uid
          group_gid = File.stat(path).gid
          owner = Etc.getpwuid(owner_uid).name
          group = Etc.getgrgid(group_gid).name
@@ -188,15 +188,15 @@ Find.find(directory_to_files) do |path|
 
          files_attr += "%attr(#{mode},#{owner},#{group})"
          files_attr +=  "\s\s#{pathnew}\n"
-         end 
+	 end 
 end
 
 puts files_attr if ! ( quiet_output == "" ) 
 new_spec = update_spec_file_tokens("/etc/multipkg/spec_template.erb") 
 outfile = File.new("#{topdir}/SPECS/#{name}-#{version}.spec" , "w" ) 
 new_spec.each { |i|
-        outfile.write i 
-        }
+	outfile.write i 
+	}
 outfile.close  
 
 Dir.chdir("#{topdir}") 
@@ -205,6 +205,5 @@ if $? == 0
 puts "\n Copying #{topdir}/RPMS/#{arch}/#{name}-#{version}-#{release}.#{arch}.rpm  to #{metapkg_dir}packages/ \n" 
 Dir.chdir("#{cwd}") 
 Dir.mkdir("#{metapkg_dir}packages") if ! ( File.directory? "#{metapkg_dir}packages" ) 
-
 system("cp -r #{topdir}/RPMS/#{arch}/#{name}-#{version}-#{release}.#{arch}.rpm #{metapkg_dir}packages/#{name}-#{version}-#{release}.#{arch}.rpm")  
 end 
