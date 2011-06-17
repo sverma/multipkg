@@ -1,26 +1,23 @@
 # Multipkg Script
+## Custom script to convert a directory structure in a rpm .
+## noarch rpm generation , Right now it deals good with flat files , like .war , custom scripts , config files packaging , php files anything whatever so ever which doesn't require build/make stuff .
 
-    * Custom script to convert a directory structure in a rpm .
-    * noarch rpm generation , Right now it deals good with flat files , like .war , custom scripts , config files packaging , php files anything whatever so ever which doesn't require build/make stuff .
+# Installation
+## If you have a linux server then installing it just one step.
+## Clone the multipkg repository
+`git clone git@github.com:sverma/multipkg.git`
+`cd multipkg`
+`make install`
+* It will install two files in your server .
+** /usr/local/bin/multipkg ( Ruby Script )
+** /etc/multipkg/spec_template.erb ( Ruby template for spec file )
 
-Installation
-
-    * If you have a linux server then installing it just one step.
-    * Download and install multipkg rpm from our repo
-          o
-
-		rpm -ivh https://github.com/saurabhverma/rpm_generator/raw/master/lib/rpm/multipkg-1-6.noarch.rpm
-          o It will install two files in your server .
-                + 1.) /usr/local/bin/multipkg ( Ruby Script )
-                + 2.) /etc/multipkg/spec_template.erb ( Ruby template for spec file )
-
-Usage
-
-    * first plan your directory structure where you want your files to go on the server .
-    * Let suppose you have three files which should be packaged in rpm and installed on the server with the below directory structure.
-          o /etc/xyz/xyz.conf
-          o /home/xyz/pull
-          o /var/www/html/xyz/file_hash
+# Usage
+## First plan your directory structure where you want your files to go on the server .
+## Let suppose you have three files which should be packaged in rpm and installed on the server with the below directory structure.
+* /etc/xyz/xyz.conf
+* /home/xyz/pull
+* /var/www/html/xyz/file_hash
 
 1.) Above is your directory structure planning , Now to actually make a RPM of your above 3 files : xyz.conf , pull , file_hash . Get your build machine , intalled the multipkg rpm and make a directory structure as below , lets say as example your package name is test_package
 
