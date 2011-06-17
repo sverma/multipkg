@@ -1,16 +1,16 @@
 # Multipkg Script
-## Custom script to convert a directory structure in a rpm .
-## noarch rpm generation , Right now it deals good with flat files , like .war , custom scripts , config files packaging , php files anything whatever so ever which doesn't require build/make stuff .
+* Custom script to convert a directory structure in a rpm .
+* noarch rpm generation , Right now it deals good with flat files , like .war , custom scripts , config files packaging , php files anything whatever so ever which doesn't require build/make stuff .
 
-# Installation
-## If you have a linux server then installing it just one step.
-## Clone the multipkg repository
-`git clone git@github.com:sverma/multipkg.git`
-`cd multipkg`
-`make install`
+## Installation
+* If you have a linux server then installing it just one step.
+* Clone the multipkg repository
+1 `git clone git@github.com:sverma/multipkg.git`
+2 `cd multipkg`
+3 `make install`
 * It will install two files in your server .
-** /usr/local/bin/multipkg ( Ruby Script )
-** /etc/multipkg/spec_template.erb ( Ruby template for spec file )
+* /usr/local/bin/multipkg ( Ruby Script )
+* /etc/multipkg/spec_template.erb ( Ruby template for spec file )
 
 # Usage
 ## First plan your directory structure where you want your files to go on the server .
