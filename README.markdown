@@ -6,10 +6,12 @@
 * If you have a linux server then installing it just one step.
 * Clone the multipkg repository
 
-1 `git clone git@github.com:sverma/multipkg.git`
-2 `cd multipkg`
-3 `make install`
-* It will install two files in your server .
+### STEPS 
+1. `git clone git@github.com:sverma/multipkg.git`
+2. `cd multipkg`
+3. `make install`
+
+#### It will install two files in your server .
 * /usr/local/bin/multipkg ( Ruby Script )
 * /etc/multipkg/spec_template.erb ( Ruby template for spec file )
 
