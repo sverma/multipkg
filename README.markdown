@@ -19,15 +19,15 @@
 * First plan your directory structure where you want your files to go on the server .
 * Let suppose you have three files which should be packaged in rpm and installed on the server with the below directory structure.
 
-` /etc/myapplication/default.conf `
-` /var/www/html/myapplication/myapplication.php `
-` /var/www/html/myapplication/myapplicationLogic.php `
-` /etc/init.d/myapplication `
+1. ` /etc/myapplication/default.conf `
+2. ` /var/www/html/myapplication/myapplication.php `
+3. ` /var/www/html/myapplication/myapplicationLogic.php `
+4.  ` /etc/init.d/myapplication `
 
 1. To create a RPM with the above files , create a directory with your application name "myapplication" and "myapplication/root" . 
 
-` myapplication/ `
-` myapplication/root ( Will ACT as FAKE ROOT DIRECTORY ) `
+* ` myapplication/ `
+* ` myapplication/root ( Will ACT as FAKE ROOT DIRECTORY ) `
 
 2. Create a version file myapplication/version Containing the version , release , architecture information
 
