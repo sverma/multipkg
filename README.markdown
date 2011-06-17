@@ -18,78 +18,36 @@
 # Usage
 ## First plan your directory structure where you want your files to go on the server .
 ## Let suppose you have three files which should be packaged in rpm and installed on the server with the below directory structure.
-* /etc/xyz/xyz.conf
-* /home/xyz/pull
-* /var/www/html/xyz/file_hash
+* /etc/myapplication/default.conf
+* /var/www/html/myapplication/myapplication.php
+* /var/www/html/myapplication/myapplicationLogic.php
+* /etc/init.d/myapplication
 
-1.) Above is your directory structure planning , Now to actually make a RPM of your above 3 files : xyz.conf , pull , file_hash . Get your build machine , intalled the multipkg rpm and make a directory structure as below , lets say as example your package name is test_package
+1. To create a RPM with the above files , create a directory with your application name "myapplication" and "myapplication/root" . 
 
-<package name>/
-<package name>/root ( Will ACT as FAKE ROOT DIRECTORY )
-<package name>/packages
+* myapplication/
+* myapplication/root ( Will ACT as FAKE ROOT DIRECTORY )
 
-2.) Create a version file <package name>/version Containing the version , release , architecture information
+2. Create a version file myapplication/version Containing the version , release , architecture information
 
-version : <version number>
-release: <release name>
-arch: < architecture name | noarch or i386 or i686 >
-
-3.) Execute the command
-
-sudo multipkg --dir <package name>
-
-4.) Get the RPM in
-
-<package name>/packages
-
-# mkdir -p metapackages
-# cd metapackages 
-# mkdir test_package
-# mkdir test_package/{root} 
-# cat - > test_package/version
-version: 1
-release: 1 
+name: myapplication
+version : 0.1
+release: 1
 arch: noarch
-# mkdir -p  test_package/root/etc/xyz/
-# mkdir -p test_package/root//home/xyz
-# mkdir -p test_package/root/var/www/html/xyz
-# touch test_package/root/etc/xyz/xyz.conf test_package/root/var/www/html/xyz/file_hash test_package/root/home/xyz/pull 
-# multipkg --dir test_package --quiet 
-etc/
-etc/xyz/
-etc/xyz/xyz.conf
-home/
-home/xyz/
-home/xyz/pull
-var/
-var/www/
-var/www/html/
-var/www/html/xyz/
-var/www/html/xyz/file_hash
 
+3. Execute the command
 
- debug test_package//root /home/saurabh.ve/metapackages/test_package/  
+`sudo multipkg --dir myapplication`
 
- 
-%attr(0644,saurabh.ve,t-sysad)  /home/xyz/pull
-%attr(0644,saurabh.ve,t-sysad)  /etc/xyz/xyz.conf
-%attr(0644,saurabh.ve,t-sysad)  /var/www/html/xyz/file_hash
+4. This is create myapplication.<version>.<release>.noarch.rpm in following folder 
 
- Copying /tmp/rpm/RPMS/noarch/test_package-1-1.noarch.rpm  to test_package/packages/ 
+`myapplication/packages`
 
-# rpm -qpl test_package/packages/test_package-1-1.noarch.rpm 
-/etc/xyz/xyz.conf
-/home/xyz/pull
-/var/www/html/xyz/file_hash
+### Optional 
+* Adding installation scripts
+* If you have any post/pre installation/uninstallation commands you can add them in version file with the following tags
+* pre , post , preun , postun
 
-Adding installation scripts
-
-    * If you have any post/pre installation/uninstallation commands you can add them in version file with the following tags
-          o pre , post , preun , postun
-
-Things to do
-
-    * Adding source rpm support
-    * Adding build/make support
-
-# test readme
+### Things to do
+* Adding source rpm support
+* Adding build/make support
