@@ -1,4 +1,4 @@
-Multipkg Script
+# Multipkg Script
 
     * Custom script to convert a directory structure in a rpm .
     * noarch rpm generation , Right now it deals good with flat files , like .war , custom scripts , config files packaging , php files anything whatever so ever which doesn't require build/make stuff .
