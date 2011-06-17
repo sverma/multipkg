@@ -15,9 +15,10 @@
 * /usr/local/bin/multipkg ( Ruby Script )
 * /etc/multipkg/spec_template.erb ( Ruby template for spec file )
 
-# Usage
-## First plan your directory structure where you want your files to go on the server .
-## Let suppose you have three files which should be packaged in rpm and installed on the server with the below directory structure.
+## Usage
+* First plan your directory structure where you want your files to go on the server .
+* Let suppose you have three files which should be packaged in rpm and installed on the server with the below directory structure.
+
 * /etc/myapplication/default.conf
 * /var/www/html/myapplication/myapplication.php
 * /var/www/html/myapplication/myapplicationLogic.php
