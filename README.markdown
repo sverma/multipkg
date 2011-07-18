@@ -31,10 +31,10 @@
 2. Create a version file myapplication/version Containing the version , release , architecture information
 ### myapplication/version
 
-`name: myapplication`
-`version : 0.1`
-`release: 1`
-`arch: noarch`
+		name: myapplication
+		version : 0.1
+		release: 1
+		arch: noarch
 
 3. Execute the command
 `sudo multipkg --dir myapplication`
