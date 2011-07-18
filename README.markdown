@@ -30,10 +30,12 @@
 * ` myapplication/root ( Will ACT as FAKE ROOT DIRECTORY ) `
 2. Create a version file myapplication/version Containing the version , release , architecture information
 ### myapplication/version
+
 `name: myapplication`
 `version : 0.1`
 `release: 1`
 `arch: noarch`
+
 3. Execute the command
 `sudo multipkg --dir myapplication`
 4. This is create myapplication.\<version\>.\<release\>.noarch.rpm in following folder 
