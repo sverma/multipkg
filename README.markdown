@@ -17,7 +17,8 @@
 
 ## Usage
 * First plan your directory structure where you want your files to go on the server .
-* Let suppose you have three files which should be packaged in rpm and installed on the server with the below directory structure.
+* Let suppose you have following 4 files which should be packaged in rpm and installed on the server with the below directory structure.
+
 1. ` /etc/myapplication/default.conf `
 2. ` /var/www/html/myapplication/myapplication.php `
 3. ` /var/www/html/myapplication/myapplicationLogic.php `
